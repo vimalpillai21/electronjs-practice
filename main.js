@@ -13,6 +13,7 @@ function createWindow () {
   const mainWindow = new BrowserWindow({
     width: 1600,
     height: 900,
+    backgroundColor: "#2c92f9",
     webPreferences: {
       // preload: path.join(__dirname, 'preload.js')
       nodeIntegration: true,
@@ -26,7 +27,8 @@ function createWindow () {
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
-  mainWindow.on("ready-to-show",mainWindow.show);
+  // mainWindow.on("ready-to-show",mainWindow.show);
+  mainWindow.once("ready-to-show",mainWindow.show);
 }
 
 
