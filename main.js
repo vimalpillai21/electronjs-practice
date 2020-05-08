@@ -12,9 +12,11 @@ function createWindow () {
   // Create the browser window.
   console.log("Creating window!!!");
   mainWindow = new BrowserWindow({
-    width: 1600,
-    height: 900,
+    width: 600,
+    height: 300,
     backgroundColor: "#2c92f9",
+    frame: false,
+    titleBarStyle: "hidden",
     webPreferences: {
       // preload: path.join(__dirname, 'preload.js')
       nodeIntegration: true,
