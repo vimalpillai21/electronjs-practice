@@ -1,7 +1,10 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
-const path = require('path')
+const path = require('path');
 
+// setTimeout(() => {
+//   console.log(app.isReady());
+// },2000);
 
 
 function createWindow () {
@@ -43,3 +46,20 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+app.on("ready",() =>{
+  console.log("App is ready!!!");
+});
+
+app.on("before-quit", (e) => {
+  console.log("App is quitting!!!");
+  // e.preventDefault();
+});
+
+app.on("browser-window-focus", () => {
+  console.log("app is in focus!!!");
+});
+
+app.on("browser-window-blur", () => {
+  console.log("app is blurred!!!");
+  setTimeout(app.quit,3000);
+});
