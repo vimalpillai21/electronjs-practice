@@ -12,8 +12,8 @@ function createWindow () {
   // Create the browser window.
   console.log("Creating window!!!");
   mainWindow = new BrowserWindow({
-    width: 500,
-    height: 300,
+    width: 1600,
+    height: 900,
     backgroundColor: "#2c92f9",
     webPreferences: {
       // preload: path.join(__dirname, 'preload.js')
@@ -36,6 +36,15 @@ function createWindow () {
   mainWindow.loadFile('index.html');
   secondaryWindow.loadFile("secondary.html");
   // mainWindow.loadURL("https://google.com");
+
+  setTimeout(() => {
+    secondaryWindow.show();
+    setTimeout(() => {
+      secondaryWindow.hide();
+      // secondaryWindow.close();
+      // secondaryWindow = null;
+    },3000);
+  },2000)
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
