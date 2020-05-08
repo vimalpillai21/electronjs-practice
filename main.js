@@ -48,6 +48,10 @@ app.on('activate', function () {
 // code. You can also put them in separate files and require them here.
 app.on("ready",() =>{
   console.log("App is ready!!!");
+  console.log(app.getPath("desktop"));
+  console.log(app.getPath("music"));
+  console.log(app.getPath("temp"));
+  console.log(app.getPath("userData"));
 });
 
 app.on("before-quit", (e) => {
@@ -61,5 +65,5 @@ app.on("browser-window-focus", () => {
 
 app.on("browser-window-blur", () => {
   console.log("app is blurred!!!");
-  setTimeout(app.quit,3000);
+  // setTimeout(app.quit,3000);
 });
