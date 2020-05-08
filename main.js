@@ -6,13 +6,14 @@ const path = require('path');
 //   console.log(app.isReady());
 // },2000);
 
+let mainWindow, secondaryWindow;
 
 function createWindow () {
   // Create the browser window.
   console.log("Creating window!!!");
-  const mainWindow = new BrowserWindow({
-    width: 1600,
-    height: 900,
+  mainWindow = new BrowserWindow({
+    width: 500,
+    height: 300,
     backgroundColor: "#2c92f9",
     webPreferences: {
       // preload: path.join(__dirname, 'preload.js')
@@ -20,6 +21,14 @@ function createWindow () {
       show:false
     }
   });
+
+  secondaryWindow = new BrowserWindow({
+    width:500,
+    height:200,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  })
   
   // and load the index.html of the app.
   mainWindow.loadFile('index.html');
@@ -29,6 +38,13 @@ function createWindow () {
   // mainWindow.webContents.openDevTools()
   // mainWindow.on("ready-to-show",mainWindow.show);
   mainWindow.once("ready-to-show",mainWindow.show);
+  mainWindow.on("close", () => {
+    mainWindow = null;
+  });
+
+  secondaryWindow.on("close", () => {
+    secondaryWindow = null;
+  });
 }
 
 
