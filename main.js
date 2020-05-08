@@ -15,16 +15,20 @@ function createWindow () {
     height: 900,
     webPreferences: {
       // preload: path.join(__dirname, 'preload.js')
-      nodeIntegration: true
+      nodeIntegration: true,
+      show:false
     }
-  })
-
+  });
+  
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+  mainWindow.loadFile('index.html');
+  // mainWindow.loadURL("https://google.com");
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
+  mainWindow.on("ready-to-show",mainWindow.show);
 }
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
