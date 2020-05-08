@@ -27,11 +27,14 @@ function createWindow () {
     height:200,
     webPreferences: {
       nodeIntegration: true
-    }
+    },
+    parent: mainWindow,
+    modal:true
   })
   
   // and load the index.html of the app.
   mainWindow.loadFile('index.html');
+  secondaryWindow.loadFile("secondary.html");
   // mainWindow.loadURL("https://google.com");
 
   // Open the DevTools.
