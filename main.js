@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron');
+const { app, BrowserWindow } = require('electron');
 const windowStateKeeper = require("electron-window-state");
 
 const path = require('path');
@@ -8,22 +8,24 @@ const path = require('path');
 //   console.log(app.isReady());
 // },2000);
 
-let mainWindowState = windowStateKeeper({
-  defaultWidth: 1000,
-  defaultHeight: 800
-});
+
 
 let mainWindow, secondaryWindow;
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
   console.log("Creating window!!!");
+  let mainWindowState = windowStateKeeper({
+    defaultWidth: 1000,
+    defaultHeight: 800
+  });
+  
   mainWindow = new BrowserWindow({
     width: mainWindowState.width,
     height: mainWindowState.height,
     x: mainWindowState.x, y: mainWindowState.y,
-    minWidth:300,
-    minHeight:150,
+    // minWidth:300,
+    // minHeight:150,
     webPreferences: {
       // preload: path.join(__dirname, 'preload.js')
       nodeIntegration: true
@@ -40,7 +42,7 @@ function createWindow () {
   //   }
   // });
 
-  mainWindow.on("focus", () =>{
+  mainWindow.on("focus", () => {
     console.log("main window is focused!!!");
   });
 
@@ -51,11 +53,12 @@ function createWindow () {
   app.on("close", () => {
     console.log("App is focused!!!");
   });
-  
-  
-  mainWindowState.manage(mainWindow);
+
+
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
+
+  mainWindowState.manage(mainWindow);
 
   // secondaryWindow.on("closed", () => {
   //   mainWindow.maximize();
@@ -75,7 +78,7 @@ function createWindow () {
 
 setTimeout(() => {
   console.log(BrowserWindow.getAllWindows());
-},2000);
+}, 2000);
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -97,7 +100,7 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-app.on("ready",() =>{
+app.on("ready", () => {
   console.log("App is ready!!!");
 });
 
