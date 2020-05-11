@@ -1,30 +1,81 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow} = require('electron');
+const windowStateKeeper = require("electron-window-state");
+
 const path = require('path');
 
 // setTimeout(() => {
 //   console.log(app.isReady());
 // },2000);
 
+let mainWindowState = windowStateKeeper({
+  defaultWidth: 1000,
+  defaultHeight: 800
+});
+
+let mainWindow, secondaryWindow;
 
 function createWindow () {
   // Create the browser window.
   console.log("Creating window!!!");
-  const mainWindow = new BrowserWindow({
-    width: 1600,
-    height: 900,
+  mainWindow = new BrowserWindow({
+    width: mainWindowState.width,
+    height: mainWindowState.height,
+    x: mainWindowState.x, y: mainWindowState.y,
+    minWidth:300,
+    minHeight:150,
     webPreferences: {
       // preload: path.join(__dirname, 'preload.js')
       nodeIntegration: true
     }
-  })
+  });
+  // secondaryWindow = new BrowserWindow({
+  //   width: 600,
+  //   height: 300,
+  //   minWidth:300,
+  //   minHeight:150,
+  //   webPreferences: {
+  //     // preload: path.join(__dirname, 'preload.js')
+  //     nodeIntegration: true
+  //   }
+  // });
 
+  mainWindow.on("focus", () =>{
+    console.log("main window is focused!!!");
+  });
+
+  // secondaryWindow.on("focus", () => {
+  //   console.log("secondary window is focused!!!")
+  // });
+
+  app.on("close", () => {
+    console.log("App is focused!!!");
+  });
+  
+  
+  mainWindowState.manage(mainWindow);
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
+
+  // secondaryWindow.on("closed", () => {
+  //   mainWindow.maximize();
+  // });
+
+  // mainWindow.on("close", ()=> {
+  //   mainWindow = null;
+  // });
+
+  // secondaryWindow.on("close", ()=> {
+  //   secondaryWindow = null;
+  // });
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }
+
+setTimeout(() => {
+  console.log(BrowserWindow.getAllWindows());
+},2000);
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -61,5 +112,5 @@ app.on("browser-window-focus", () => {
 
 app.on("browser-window-blur", () => {
   console.log("app is blurred!!!");
-  setTimeout(app.quit,3000);
+  // setTimeout(app.quit,3000);
 });
