@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const { app, BrowserWindow, webContents } = require('electron')
 const path = require('path');
 
 // setTimeout(() => {
@@ -11,8 +11,10 @@ function createWindow () {
   // Create the browser window.
   console.log("Creating window!!!");
   const mainWindow = new BrowserWindow({
-    width: 1600,
-    height: 900,
+    width: 800,
+    height: 700,
+    x:100,
+    y:100,
     webPreferences: {
       // preload: path.join(__dirname, 'preload.js')
       nodeIntegration: true
@@ -21,6 +23,18 @@ function createWindow () {
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
+
+  let wc = mainWindow.webContents;
+  // console.log(wc);
+  // console.log(webContents.getAllWebContents());
+
+  wc.on("did-finish-load", () => {
+    console.log("finished complete loading!!!");
+  });
+
+  wc.on("dom-ready", () => {
+    console.log("DOM Ready");
+  });
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -59,7 +73,7 @@ app.on("browser-window-focus", () => {
   console.log("app is in focus!!!");
 });
 
-app.on("browser-window-blur", () => {
-  console.log("app is blurred!!!");
-  setTimeout(app.quit,3000);
-});
+// app.on("browser-window-blur", () => {
+//   console.log("app is blurred!!!");
+//   setTimeout(app.quit,3000);
+// });
