@@ -19,16 +19,29 @@ function createWindow () {
 
   mainWindow.loadFile('index.html')
   mainWindow.webContents.on("did-finish-load", () => {
-   const file =  dialog.showOpenDialog({
-      button:"Select a photo",
-      // defaultPath: app.getPath("desktop"),
-      properties: ['openFile','multiSelections' ]
-    }).then((filepath) => {
-      console.log(filepath);
-      console.log("Hello WOlrd reached here!!!");
-    }
-    );
-  });
+  //  const file =  dialog.showOpenDialog({
+  //     button:"Select a photo",
+  //     // defaultPath: app.getPath("desktop"),
+  //     properties: ['openFile','multiSelections' ]
+  //   }).then((filepath) => {
+  //     console.log(filepath);
+  //     console.log("Hello WOlrd reached here!!!");
+  //   }
+  //   );
+    // dialog.showSaveDialog({},(filename) => {
+    //   console.log(filename);
+    // });
+    let answers = ["Yes","No","Maybe"];
+    dialog.showMessageBox({
+      title: "Message Box",
+      message: "Please select an option!",
+      details: "Message Details.",
+      buttons: answers
+
+    }).then((response) => {
+      console.log(`You selected ${answers[response.response]}`);
+    })
+});
  
 }
 
