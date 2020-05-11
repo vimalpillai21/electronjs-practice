@@ -28,13 +28,22 @@ function createWindow () {
   // console.log(wc);
   // console.log(webContents.getAllWebContents());
 
-  wc.on("did-finish-load", () => {
-    console.log("finished complete loading!!!");
+  // wc.on("new-window", (e,url) => {
+  //   e.preventDefault();
+  //   console.log(`Preventing from creating new window for ${url}`);
+  // });
+
+  wc.on("before-input-event", (e,input) => {
+    console.log(`${input.key} -  ${input.type}`);
   });
 
-  wc.on("dom-ready", () => {
-    console.log("DOM Ready");
-  });
+  // wc.on("did-finish-load", () => {
+  //   console.log("finished complete loading!!!");
+  // });
+
+  // wc.on("dom-ready", () => {
+  //   console.log("DOM Ready");
+  // });
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
