@@ -4,4 +4,18 @@
 // `nodeIntegration` is turned off. Use `preload.js` to
 // selectively enable features needed in the rendering
 // process.
-console.log("Hello World!!!");
+const { ipcRenderer } = require("electron");
+const button = document.getElementById("test");
+
+button.addEventListener("click", (e) => {
+    ipcRenderer.send("channel1", "Hello from main window");
+})
+
+
+ipcRenderer.on("channel1-response", (e, args) => {
+    console.log(args);
+});
+
+ipcRenderer.on("mailbox", (e, args) => {
+    console.log(args);
+});
