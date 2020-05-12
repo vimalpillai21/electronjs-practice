@@ -4,4 +4,23 @@
 // `nodeIntegration` is turned off. Use `preload.js` to
 // selectively enable features needed in the rendering
 // process.
-console.log("Hello World!!!");
+const remote = require("electron").remote;
+const { dialog, BrowserWindow, app } = remote;
+
+// console.log("Hello World!!!");
+// console.log(remote);
+
+const button = document.getElementById("test-button");
+button.addEventListener("click", (e) => {
+    console.log("Logging");
+    // dialog.showMessageBox({message: "Dialog invoked from renderer process!!!"});
+    // secWindow =  new BrowserWindow({
+    //     width:400,height:350
+    // });
+    // secWindow.loadFile("index.html");
+    // console.log(remote.getGlobal("myapp"));
+    // app.quit();
+
+    let win  = remote.getCurrentWindow()
+    win.maximize();
+});
